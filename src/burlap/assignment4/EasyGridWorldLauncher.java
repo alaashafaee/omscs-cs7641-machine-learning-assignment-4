@@ -20,7 +20,7 @@ public class EasyGridWorldLauncher {
 	//runValueIteration, runPolicyIteration, and runQLearning indicate which algorithms will run in the experiment
 	private static boolean runValueIteration = true; 
 	private static boolean runPolicyIteration = true;
-	private static boolean runQLearning = true;
+	private static boolean runQLearning = false;
 	
 	//showValueIterationPolicyMap, showPolicyIterationPolicyMap, and showQLearningPolicyMap will open a GUI
 	//you can use to visualize the policy maps. Consider only having one variable set to true at a time
@@ -29,7 +29,7 @@ public class EasyGridWorldLauncher {
 	private static boolean showPolicyIterationPolicyMap = false;
 	private static boolean showQLearningPolicyMap = false;
 	
-	private static Integer MAX_ITERATIONS = 100;
+	private static Integer MAX_ITERATIONS = 50000;
 	private static Integer NUM_INTERVALS = 100;
 
 	protected static int[][] userMap = new int[][] { 

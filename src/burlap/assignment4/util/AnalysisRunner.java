@@ -24,7 +24,10 @@ import java.util.List;
 public class AnalysisRunner {
 
 	final SimpleHashableStateFactory hashingFactory = new SimpleHashableStateFactory();
-
+	static double maxDelta = 0.0001;
+	static double gamma = 0.99;
+	static double epsilon = 1;
+	
 	private int MAX_ITERATIONS;
 	private int NUM_INTERVALS;
 
@@ -52,9 +55,9 @@ public class AnalysisRunner {
 					domain,
 					rf,
 					tf,
-					0.99,
+					gamma,
 					hashingFactory,
-					-1, numIterations); //Added a very high delta number in order to guarantee that value iteration occurs the max number of iterations
+					maxDelta, numIterations); //Added a very high delta number in order to guarantee that value iteration occurs the max number of iterations
 										   //for comparison with the other algorithms.
 	
 			// run planning from our initial state
@@ -90,9 +93,9 @@ public class AnalysisRunner {
 					domain,
 					rf,
 					tf,
-					0.99,
+					gamma,
 					hashingFactory,
-					-1, 1, numIterations);
+					maxDelta, 10, numIterations);
 	
 			// run planning from our initial state
 			p = pi.planFromState(initialState);
@@ -132,7 +135,8 @@ public class AnalysisRunner {
 			State initialState, RewardFunction rf, TerminalFunction tf,
 			SimulatedEnvironment env, boolean showPolicyMap) {
 		System.out.println("//Q Learning Analysis//");
-
+		System.out.println("Epsilon = " + epsilon);
+		
 		QLearning agent = null;
 		Policy p = null;
 		EpisodeAnalysis ea = null;
@@ -142,9 +146,11 @@ public class AnalysisRunner {
 
 			agent = new QLearning(
 				domain,
-				0.99,
+				gamma,
 				hashingFactory,
-				0.99, 0.99);
+				100,
+				0.99,
+				epsilon);
 			
 			for (int i = 0; i < numIterations; i++) {
 				ea = agent.runLearningEpisode(env);

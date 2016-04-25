@@ -77,16 +77,20 @@ public class BasicGridWorld implements DomainGenerator {
 	}
 
 	public static State getExampleState(Domain domain) {
+		return getExampleState(domain, 0, 0, mapx, mapy);
+	}
+	
+	public static State getExampleState(Domain domain, int agentX, int agentY, int locationX, int locationY) {
 		State s = new MutableState();
 		ObjectInstance agent = new MutableObjectInstance(
 				domain.getObjectClass(CLASSAGENT), "agent0");
-		agent.setValue(ATTX, 0);
-		agent.setValue(ATTY, 0);
+		agent.setValue(ATTX, agentX);
+		agent.setValue(ATTY, agentY);
 
 		ObjectInstance location = new MutableObjectInstance(
 				domain.getObjectClass(CLASSLOCATION), "location0");
-		location.setValue(ATTX, mapx);
-		location.setValue(ATTY, mapy);
+		location.setValue(ATTX, locationX);
+		location.setValue(ATTY, locationY);
 
 		s.addObject(agent);
 		s.addObject(location);
